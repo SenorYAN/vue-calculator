@@ -1,6 +1,6 @@
 <template>
   <div id="calculator">
-    <result v-bind:title="answer" />
+    <result v-bind:title="answer" v-bind:funcName="fName"/>
     <div id="panel-wrapper">
       <div id="number-panel">
         <numberButton  v-for="number in numbers" :value="number" v-on:onSetNumber="setNumber"/>
@@ -17,8 +17,6 @@
 import result from './components/result.vue';
 import numberButton from './components/number-button.vue';
 import calculateButton from './components/calculate-button.vue';
-var math = require('mathjs');
-console.log(math.add(0.1,0.2));
 export default {
   name: 'calculator',
   data () {
@@ -28,6 +26,7 @@ export default {
       setAnswer: function(answer){this.answer = answer},
       numbers: ['1','2','3','4','5','6','7','8','9','0','.','MC'],
       calculateFuncs: ['+','-','*','/'],
+      fName:'',
       arg:[0,0,''],//运算数组，[参数1、参数2、运算类型]
       IS_DOT: false//是否点击了小数点
     }
@@ -57,8 +56,9 @@ export default {
     },
     calculateFunc : function(fName){
       console.log(fName);
+      this.fName = fName;
       this.IS_DOT = false;
-      this.arg[0] = this.answer;//把目前的answer放到第一个运算参数
+      this.arg[0] = this.answer - 0;//把目前的answer放到第一个运算参数
       this.arg[2] = fName;
       this.setAnswer('');
     },
@@ -71,16 +71,16 @@ export default {
 
       switch(this.arg[2]){
         case '+':
-          _sum = (this.arg[0] + this.answer).toFixed(_dotSum);
+          _sum = (this.arg[0] + (this.answer-0)).toFixed(_dotSum);
         break;
         case '-':
-          _sum = (this.arg[0] - this.answer).toFixed(_dotSum);
+          _sum = (this.arg[0] - (this.answer-0)).toFixed(_dotSum);
         break;
         case '*':
-          _sum = (this.arg[0] * this.answer).toFixed(_dotSum1 + _dotSum2);
+          _sum = (this.arg[0] * (this.answer-0)).toFixed(_dotSum1 + _dotSum2);
         break;
         case '/':
-          _sum = this.arg[0] / this.answer;
+          _sum = this.arg[0] / (this.answer-0);
           let _tf = (_sum.toString().split('.')[1]||[]).length>10 ? 10 : (_sum.toString().split('.')[1]||[]).length;
           _sum = _sum.toFixed(_tf);
         break;
@@ -90,6 +90,7 @@ export default {
       }
       this.setAnswer(_sum);
       this.arg[2] = '';
+      this.fName = '';
     }
   },
   components: { result, numberButton, calculateButton }
