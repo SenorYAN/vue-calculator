@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     setNumber : function(n){
-      !this.arg[2] && this.setAnswer(0);
       if(n!='.'&&n!='MC'){
         console.log('typed: ' + n + ' current-answer: '+ this.answer + ' ISDOT is ' + this.IS_DOT);
         let _dotSum = this.answer.toString().split('.')[1],
