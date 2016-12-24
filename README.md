@@ -1,7 +1,6 @@
-# vuefirst
+# vue-calculator
 
-> A Vue.js project
-> A calculator
+> A calculator by vue
 
 ## Build Setup
 
