@@ -2,3 +2,15 @@
 node_modules/
 dist/
 npm-debug.log
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/vcs.xml
+
+.idea/vueCalculator.iml
+
+.idea/workspace.xml
+
+.vscode/launch.json
